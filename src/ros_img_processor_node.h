@@ -10,6 +10,8 @@
 #include <sensor_msgs/image_encodings.h>
 #include <sensor_msgs/CameraInfo.h>
 
+#include "geometry_msgs/Vector3.h"
+
 /** \brief Simple Image Processor
  *
  * Simple Image Processor with opencv calls
@@ -30,13 +32,17 @@ class RosImgProcessorNode
 
         //publishers
         image_transport::Publisher image_pub_;
+        ros::Publisher ray_direction_circle_pub; //Publisher of rays found, pose version
 
         //pointer to received (in) and published (out) images
         cv_bridge::CvImagePtr cv_img_ptr_in_;
         cv_bridge::CvImage cv_img_out_;
 
+        cv::Mat ray_direction_;
+
 		//Camera matrix
 		cv::Mat matrixP_;
+    cv::Mat matrixK_;
 
         //image encoding label
         std::string img_encoding_;
@@ -48,6 +54,7 @@ class RosImgProcessorNode
         // callbacks
         void imageCallback(const sensor_msgs::ImageConstPtr& _msg);
         void cameraInfoCallback(const sensor_msgs::CameraInfo & _msg);
+        void draw_clircle(const cv::Point & center, const int radius, bool draw_center_coordinates);
 
     public:
         /** \brief Constructor
