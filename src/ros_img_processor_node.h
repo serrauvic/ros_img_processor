@@ -32,12 +32,12 @@ class RosImgProcessorNode
 
         //publishers
         image_transport::Publisher image_pub_;
-        ros::Publisher ray_direction_circle_pub; //Publisher of rays found, pose version
+        ros::Publisher ray_direction_circle_pub;
 
         //pointer to received (in) and published (out) images
         cv_bridge::CvImagePtr cv_img_ptr_in_;
         cv_bridge::CvImage cv_img_out_;
-
+        // ray direction in camera frame.
         cv::Mat ray_direction_;
 
 		//Camera matrix
@@ -55,6 +55,7 @@ class RosImgProcessorNode
         void imageCallback(const sensor_msgs::ImageConstPtr& _msg);
         void cameraInfoCallback(const sensor_msgs::CameraInfo & _msg);
         void draw_clircle(const cv::Point & center, const int radius, bool draw_center_coordinates);
+        void draw_ray_direction(const cv::Point & center);
 
     public:
         /** \brief Constructor

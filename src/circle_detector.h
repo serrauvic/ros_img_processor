@@ -70,10 +70,11 @@ namespace Hough_Circle
     cv::invert(matrixK, kinverted, cv::DECOMP_LU);
     // Make room and initialize ray direction value.
     ray_direction = (cv::Mat_<double>(3,1) << 0, 0, 0);
-    // Convert CV Point type to Cv Mat type fixing z for calculate matrix product.
-    cv::Mat centerPoint = (cv::Mat_<double>(3,1) << center.x, center.y, 1.0);
-    // Calculate ray direction.
-    ray_direction = kinverted * centerPoint;
+    // Homogenous point (give it a third coordinate equal to 1).
+    cv::Mat homogenous_point = (cv::Mat_<double>(3,1) << center.x, center.y, 1.0);
+    // Put in world coordinates the circle center.
+    ray_direction = kinverted * homogenous_point;
+
   };
 } // Hough_Circle
 
