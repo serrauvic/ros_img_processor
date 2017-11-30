@@ -45,22 +45,30 @@ void RosImgProcessorNode::process()
         //
         std::vector<cv::Vec3f> circles;
 
+        // detect circles in the image.
         Hough_Transform::calculate(cv_img_out_.image, circles);
 
         //draw circles on the image
         for(unsigned int ii = 0; ii < circles.size(); ii++ )
         {
+            // if valid circle.
             if ( circles[ii][0] != -1 )
             {
-
+                // center of the circle.
                 cv::Point center;
+                // radius of the circle.
                 int radius;
-                Img_Circle::get_center_coordinates(circles[ii], center, radius);
+
+                // get cirlce coodinates, center point and radius.
+                Hough_Circle::get_center_coordinates(circles[ii], center, radius);
+                // draw circle.
                 draw_clircle(center, radius, true/*draw circle center coordinates*/);
-                Img_Circle::get_ray_direction(matrixK_, center, ray_direction_);
+                // calculate center circle ray direction from camera frame persepctive.
+                Hough_Circle::get_ray_direction(matrixK_, center, ray_direction_);
+
+                cv::line( cv_img_out_.image, center, cv::Point( ray_direction_.at<double>(0, 0), ray_direction_.at<double>(1, 0) ), cv::Scalar( 110, 220, 0 ),  2, 8 );
             }
         }
-
 
         //sets and draw a bounding box around the ball
         box.x = (cv_img_ptr_in_->image.cols/2)-10;
@@ -73,10 +81,10 @@ void RosImgProcessorNode::process()
     //reset input image
     cv_img_ptr_in_ = nullptr;
 }
-void RosImgProcessorNode::draw_clircle(const cv::Point & center, const int radius, bool draw_center_coordinates)
+void RosImgProcessorNode::draw_clircle(const cv::Point & center, int radius, bool draw_center_coordinates)
 {
-  cv::circle(cv_img_out_.image, center, 5, cv::Scalar(128, 255, 0), -1, 8, 0 );// circle center in green
-  cv::circle(cv_img_out_.image, center, radius, cv::Scalar(0, 0, 255), 3, 8, 0 );// circle perimeter in red
+  cv::circle(cv_img_out_.image, center, 5, cv::Scalar(255, 255, 0), -1, 8, 0 );// circle center in yellow
+  cv::circle(cv_img_out_.image, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_8, 0 );// circle perimeter in red
 
   if (draw_center_coordinates)
   {

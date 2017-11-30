@@ -61,4 +61,7 @@
 		</node>
 	</group>
 
+	<!-- rviz
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find copter_arm_robot)/config/copter.rviz"/>
+ -->
 </launch>
