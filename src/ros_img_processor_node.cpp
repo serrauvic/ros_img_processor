@@ -38,11 +38,7 @@ void RosImgProcessorNode::process()
     {
         //copy the input image to the out one
         cv_img_out_.image = cv_img_ptr_in_->image;
-
-        // vector3.msg.
-        // com a punt a part podriem publicar aquesta de en un  missatge com un talker del tutorial 1 que vam fer.
-        // publicar un marker per tal que des de rviz es pugui veure la fletxa del vector direcció.
-        //
+        // detected circles-
         std::vector<cv::Vec3f> circles;
 
         // detect circles in the image.
