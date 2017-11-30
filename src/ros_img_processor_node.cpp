@@ -64,10 +64,10 @@ void RosImgProcessorNode::process()
                 // draw circle.
                 draw_clircle(center, radius, true/*draw circle center coordinates*/);
                 // calculate center circle ray direction from camera frame persepctive,
-                // put the center point in the real world.
+                // put the circle center point in the real world.
                 Hough_Circle::get_ray_direction(matrixK_, center, ray_direction_);
                 // draw vector.
-                draw_ray_direction(center);
+                draw_ray_direction_vector(center);
             }
         }
 
@@ -95,16 +95,13 @@ void RosImgProcessorNode::draw_clircle(const cv::Point & center, int radius, boo
     std::ostringstream stringStream;
     stringStream  << "  x:" << center.x << "\n" << " y:" << center.y;
     // print circle center coordinates
-    cv::putText(cv_img_out_.image, stringStream.str(), center, cv::FONT_HERSHEY_PLAIN, 0.8, cv::Scalar(0, 255, 0), 2, 0.5);
+    cv::putText(cv_img_out_.image, stringStream.str(), center, cv::FONT_HERSHEY_PLAIN, 0.8, cv::Scalar(255, 153, 51), 2, 0.5);
   }
 }
-void RosImgProcessorNode::draw_ray_direction(const cv::Point & center)
+void RosImgProcessorNode::draw_ray_direction_vector(const cv::Point & center)
 {
-  cv::Point3f direction(ray_direction_.at<double>(0, 0), ray_direction_.at<double>(1, 0), ray_direction_.at<double>(2, 0));
-direction *= 1/cv::norm(direction);
-cv::line( cv_img_out_.image, center, cv::Point(direction.x, direction.y), cv::Scalar( 110, 220, 0 ),  2, 8 );
-  // line from a center circle to the
-  //cv::line( cv_img_out_.image, center, cv::Point( ray_direction_.at<double>(0, 0), ray_direction_.at<double>(1, 0) ), cv::Scalar( 110, 220, 0 ),  2, 8 );
+  // line from center circle
+  cv::line( cv_img_out_.image, center, cv::Point( ray_direction_.at<double>(0, 0), ray_direction_.at<double>(1, 0) ), cv::Scalar( 110, 220, 0 ),  2, 8 );
 }
 void RosImgProcessorNode::publish()
 {

@@ -55,7 +55,7 @@ class RosImgProcessorNode
         void imageCallback(const sensor_msgs::ImageConstPtr& _msg);
         void cameraInfoCallback(const sensor_msgs::CameraInfo & _msg);
         void draw_clircle(const cv::Point & center, const int radius, bool draw_center_coordinates);
-        void draw_ray_direction(const cv::Point & center);
+        void draw_ray_direction_vector(const cv::Point & center);
 
     public:
         /** \brief Constructor
