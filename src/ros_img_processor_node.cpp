@@ -1,5 +1,6 @@
 #include "ros_img_processor_node.h"
 #include "circle_detector.h"
+#include "camera.h"
 
 //OpenCV
 #include "opencv2/opencv.hpp"
@@ -61,7 +62,7 @@ void RosImgProcessorNode::process()
                 draw_clircle(center, radius, true/*draw circle center coordinates*/);
                 // calculate center circle ray direction from camera frame persepctive,
                 // put the circle center point in the real world.
-                Hough_Circle::get_ray_direction(matrixK_, center, ray_direction_);
+                Camera::get_ray_direction(matrixK_, center, ray_direction_);
                 // draw vector.
                 draw_ray_direction_vector(center);
             }
