@@ -9,6 +9,7 @@ Just a simple template node receivng an image and doing something. Links to Open
 4. Puts the circle center detected in the camer world coordinates by using 
 	d=k¹*u where u is the direction ray and u is the circle center.
 5. Draw a vector from circle center to the calculated ray direction
+6. Publish ray direction topic "center_ray_direction"
 
 ## How to run the code
 In a terminal window, type:
