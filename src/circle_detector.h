@@ -5,6 +5,7 @@
 #include "opencv2/opencv.hpp"
 #include "opencv2/core.hpp"
 
+//TODO: In a future it could be a class for now with an inlined function it's enough.
 namespace Hough_Transform
 {
   //constants
