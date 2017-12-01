@@ -7,7 +7,7 @@ Just a simple template node receivng an image and doing something. Links to Open
 2. Draw found circle.
 3. From camera_info message from usb_cam gets and saves the intrinsec calibration matrix (k).
 4. Puts the circle center detected in the camer world coordinates by using 
-	d=k¹*u where u is the direction ray and u is the circle center.
+	d=k¹*u where d is the direction ray and u is the circle center.
 5. Draw a vector from circle center to the calculated ray direction
 6. Publish ray direction topic "center_ray_direction"
 
